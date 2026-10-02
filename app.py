@@ -9,7 +9,7 @@ from crew import create_crew
 # ============================================================
 
 st.set_page_config(
-    page_title="Research Lab | Multi-Agent AI",
+    page_title="Research Lab",
     page_icon="🔬",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -24,8 +24,33 @@ st.markdown(
     """
     <style>
 
-    /* ---------- GLOBAL ---------- */
+    /* =========================
+       GLOBAL
+       ========================= */
 
+    .stApp {
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(82, 82, 255, 0.10),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 90% 20%,
+                rgba(0, 180, 255, 0.08),
+                transparent 28%
+            ),
+            #070b14;
+        color: #f5f7ff;
+    }
+
+    .block-container {
+        max-width: 1400px;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+
+    /* Hide Streamlit branding */
     #MainMenu {
         visibility: hidden;
     }
@@ -38,391 +63,386 @@ st.markdown(
         visibility: hidden;
     }
 
-    .stApp {
-        background:
-            radial-gradient(
-                circle at 15% 10%,
-                rgba(91, 83, 255, 0.14),
-                transparent 28%
-            ),
-            radial-gradient(
-                circle at 85% 20%,
-                rgba(0, 194, 255, 0.10),
-                transparent 25%
-            ),
-            #070a13;
-        color: #f5f7ff;
+
+    /* =========================
+       HERO
+       ========================= */
+
+    .hero {
+        padding: 45px 10px 35px 10px;
     }
 
-    .block-container {
-        max-width: 1250px;
-        padding-top: 2.5rem;
-        padding-bottom: 4rem;
-    }
+    .hero-badge {
+        display: inline-block;
+        padding: 7px 13px;
 
-    /* ---------- TEXT ---------- */
+        border: 1px solid rgba(130, 145, 255, 0.25);
+        border-radius: 999px;
 
-    .eyebrow {
-        color: #8f9bb8;
-        font-size: 0.75rem;
+        background: rgba(90, 100, 255, 0.08);
+
+        color: #aeb7ff;
+
+        font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        margin-bottom: 0.7rem;
+
+        letter-spacing: 1.5px;
     }
 
     .hero-title {
-        font-size: clamp(2.6rem, 6vw, 5rem);
-        line-height: 0.98;
-        font-weight: 800;
-        letter-spacing: -0.055em;
-        margin: 0;
-        color: #ffffff;
-    }
+        margin-top: 18px;
 
-    .hero-title span {
-        background: linear-gradient(
-            100deg,
-            #ffffff 0%,
-            #9ea7ff 45%,
-            #63dcff 100%
-        );
+        font-size: clamp(40px, 6vw, 72px);
+        line-height: 1.02;
+
+        font-weight: 800;
+
+        letter-spacing: -3px;
+
+        background:
+            linear-gradient(
+                90deg,
+                #ffffff,
+                #bfc8ff,
+                #7bdcff
+            );
+
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    .hero-description {
-        color: #9aa6c2;
-        font-size: 1.05rem;
+    .hero-subtitle {
+        max-width: 760px;
+
+        margin-top: 18px;
+
+        color: #8f9ab3;
+
+        font-size: 17px;
         line-height: 1.7;
-        max-width: 720px;
-        margin-top: 1.25rem;
-        margin-bottom: 2rem;
     }
 
-    /* ---------- HERO BADGE ---------- */
 
-    .hero-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 7px 12px;
-        border: 1px solid rgba(130, 143, 255, 0.25);
-        border-radius: 999px;
-        background: rgba(105, 91, 255, 0.08);
-        color: #aeb6ff;
-        font-size: 0.75rem;
+    /* =========================
+       SECTION HEADERS
+       ========================= */
+
+    .section-header {
+        margin-top: 35px;
+        margin-bottom: 18px;
+    }
+
+    .section-eyebrow {
+        color: #7783a2;
+
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 0.08em;
-        margin-bottom: 1rem;
-    }
 
-    .badge-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #65e6a4;
-        box-shadow: 0 0 12px rgba(101, 230, 164, 0.8);
-    }
-
-    /* ---------- GLASS CARD ---------- */
-
-    .glass-card {
-        background: rgba(16, 21, 35, 0.72);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 22px;
-        padding: 24px;
-        backdrop-filter: blur(18px);
-        -webkit-backdrop-filter: blur(18px);
-        box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.25),
-            inset 0 1px 0 rgba(255, 255, 255, 0.035);
-    }
-
-    /* ---------- SECTION ---------- */
-
-    .section-label {
-        color: #7f8aa7;
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        margin-bottom: 0.75rem;
+        letter-spacing: 2px;
     }
 
     .section-title {
+        margin-top: 7px;
+
         color: #f5f7ff;
-        font-size: 1.35rem;
+
+        font-size: 25px;
         font-weight: 750;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.3rem;
     }
 
-    .section-description {
-        color: #7f8aa7;
-        font-size: 0.88rem;
+    .section-subtitle {
+        margin-top: 6px;
+
+        color: #78849e;
+
+        font-size: 13px;
     }
 
-    /* ---------- AGENT CARDS ---------- */
+
+    /* =========================
+       RESEARCH INPUT
+       ========================= */
+
+    .input-card {
+        padding: 25px;
+
+        background: rgba(16, 22, 36, 0.75);
+
+        border: 1px solid rgba(130, 145, 180, 0.16);
+
+        border-radius: 20px;
+
+        box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.18);
+    }
+
+
+    /* =========================
+       AGENT CARDS
+       ========================= */
 
     .agent-card {
-        min-height: 165px;
+        width: 100%;
+        min-height: 175px;
+
         padding: 20px;
-        border-radius: 20px;
-        background: rgba(15, 20, 33, 0.82);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        transition:
-            transform 0.2s ease,
-            border-color 0.2s ease,
-            box-shadow 0.2s ease;
+
+        box-sizing: border-box;
+
+        background: rgba(18, 24, 40, 0.78);
+
+        border: 1px solid rgba(130, 145, 180, 0.18);
+
+        border-radius: 18px;
+
+        transition: all 0.25s ease;
     }
 
     .agent-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(132, 143, 255, 0.25);
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
-    }
+        transform: translateY(-4px);
 
-    .agent-card.active {
-        border-color: rgba(99, 220, 255, 0.45);
+        border-color: rgba(130, 145, 255, 0.40);
+
         box-shadow:
-            0 0 0 1px rgba(99, 220, 255, 0.08),
-            0 20px 55px rgba(32, 139, 255, 0.12);
-    }
-
-    .agent-card.complete {
-        border-color: rgba(101, 230, 164, 0.22);
+            0 12px 35px rgba(0, 0, 0, 0.25);
     }
 
     .agent-icon {
-        font-size: 1.7rem;
-        margin-bottom: 12px;
+        font-size: 28px;
+        line-height: 1;
+
+        margin-bottom: 18px;
     }
 
     .agent-name {
-        color: #f4f6ff;
-        font-size: 0.98rem;
-        font-weight: 750;
-        margin-bottom: 5px;
+        color: #f4f7ff;
+
+        font-size: 16px;
+        font-weight: 700;
+
+        line-height: 1.3;
+
+        margin-bottom: 6px;
     }
 
     .agent-role {
-        color: #78849f;
-        font-size: 0.77rem;
-        line-height: 1.5;
-        min-height: 36px;
+        color: #8f9bb5;
+
+        font-size: 12px;
+
+        line-height: 1.4;
     }
 
-    .agent-status {
-        margin-top: 15px;
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-    }
+    .agent-tool-label {
+        margin-top: 20px;
 
-    .status-working {
-        color: #63dcff;
-    }
-
-    .status-complete {
-        color: #65e6a4;
-    }
-
-    .status-waiting {
         color: #69758f;
+
+        font-size: 9px;
+
+        font-weight: 700;
+
+        letter-spacing: 1.5px;
     }
 
-    .pulse {
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #63dcff;
-        margin-right: 6px;
-        box-shadow: 0 0 0 0 rgba(99, 220, 255, 0.7);
-        animation: pulse 1.6s infinite;
+    .agent-tool {
+        margin-top: 4px;
+
+        color: #aab4c9;
+
+        font-size: 11px;
+
+        line-height: 1.4;
     }
 
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 rgba(99, 220, 255, 0.7);
-        }
 
-        70% {
-            box-shadow: 0 0 0 9px rgba(99, 220, 255, 0);
-        }
+    /* =========================
+       WORKING CARD
+       ========================= */
 
-        100% {
-            box-shadow: 0 0 0 0 rgba(99, 220, 255, 0);
-        }
-    }
+    .working-card {
+        margin-top: 25px;
 
-    .check {
-        color: #65e6a4;
-        margin-right: 6px;
-    }
+        padding: 20px 22px;
 
-    /* ---------- WORKING PANEL ---------- */
-
-    .working-panel {
-        padding: 18px 20px;
-        border-radius: 18px;
         background:
             linear-gradient(
-                110deg,
-                rgba(78, 68, 255, 0.13),
-                rgba(41, 184, 255, 0.07)
+                135deg,
+                rgba(35, 45, 85, 0.75),
+                rgba(14, 20, 35, 0.85)
             );
-        border: 1px solid rgba(99, 220, 255, 0.18);
+
+        border: 1px solid rgba(120, 140, 255, 0.22);
+
+        border-radius: 18px;
     }
 
     .working-label {
-        color: #72809d;
-        font-size: 0.68rem;
-        font-weight: 800;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
+        color: #7f8cac;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        letter-spacing: 1.8px;
     }
 
     .working-agent {
+        margin-top: 7px;
+
         color: #ffffff;
-        font-size: 1.12rem;
-        font-weight: 750;
+
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .working-description {
         margin-top: 5px;
+
+        color: #8995ae;
+
+        font-size: 12px;
     }
 
-    .working-message {
-        color: #8e9ab5;
-        font-size: 0.82rem;
-        margin-top: 3px;
-    }
 
-    /* ---------- METRICS ---------- */
+    /* =========================
+       METRICS
+       ========================= */
 
     .metric-card {
+        padding: 20px;
+
+        background: rgba(15, 21, 35, 0.7);
+
+        border: 1px solid rgba(120, 135, 170, 0.13);
+
+        border-radius: 16px;
+
         text-align: center;
-        padding: 18px 12px;
-        border-radius: 18px;
-        background: rgba(15, 20, 33, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .metric-number {
-        color: #ffffff;
-        font-size: 1.45rem;
+        color: #f5f7ff;
+
+        font-size: 26px;
         font-weight: 800;
     }
 
     .metric-label {
+        margin-top: 5px;
+
         color: #737f99;
-        font-size: 0.68rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        margin-top: 4px;
+
+        font-size: 10px;
+
+        letter-spacing: 1px;
     }
 
-    /* ---------- REPORT ---------- */
 
-    .report-header {
-        padding: 24px;
-        border-radius: 22px;
+    /* =========================
+       REPORT
+       ========================= */
+
+    .report-card {
+        padding: 30px;
+
+        background: rgba(14, 20, 34, 0.85);
+
+        border: 1px solid rgba(130, 145, 180, 0.16);
+
+        border-radius: 20px;
+
+        line-height: 1.8;
+    }
+
+
+    /* =========================
+       BUTTON
+       ========================= */
+
+    .stButton > button {
+        width: 100%;
+
+        min-height: 48px;
+
+        border: none;
+
+        border-radius: 12px;
+
         background:
             linear-gradient(
-                120deg,
-                rgba(75, 65, 255, 0.16),
-                rgba(32, 183, 255, 0.08)
+                135deg,
+                #6674ff,
+                #4d9cff
             );
-        border: 1px solid rgba(125, 135, 255, 0.18);
-    }
 
-    .report-kicker {
-        color: #65e6a4;
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-    }
-
-    .report-title {
         color: white;
-        font-size: 1.55rem;
-        font-weight: 800;
-        margin-top: 6px;
-    }
 
-    /* ---------- SOURCE TAG ---------- */
+        font-size: 14px;
 
-    .source-tag {
-        display: inline-block;
-        padding: 6px 10px;
-        margin: 3px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        color: #8995af;
-        font-size: 0.7rem;
-    }
+        font-weight: 700;
 
-    /* ---------- STREAMLIT INPUTS ---------- */
+        box-shadow:
+            0 10px 25px rgba(80, 100, 255, 0.20);
 
-    div[data-testid="stTextInput"] input {
-        background: rgba(13, 18, 30, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: white;
-        border-radius: 15px;
-        padding: 16px;
-        min-height: 52px;
-    }
-
-    div[data-testid="stTextInput"] input:focus {
-        border-color: rgba(99, 220, 255, 0.5);
-        box-shadow: 0 0 0 1px rgba(99, 220, 255, 0.12);
-    }
-
-    div[data-testid="stButton"] button {
-        border-radius: 14px;
-        min-height: 50px;
-        font-weight: 750;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: linear-gradient(
-            100deg,
-            #5147e8,
-            #227bd8
-        );
-        color: white;
         transition: all 0.2s ease;
     }
 
-    div[data-testid="stButton"] button:hover {
+    .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(56, 96, 255, 0.22);
+
+        box-shadow:
+            0 14px 32px rgba(80, 100, 255, 0.30);
     }
 
-    /* ---------- DIVIDER ---------- */
 
-    .soft-divider {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.06);
-        margin: 30px 0;
+    /* =========================
+       TEXT AREA
+       ========================= */
+
+    textarea {
+        background: #0d1321 !important;
+
+        color: #f5f7ff !important;
+
+        border: 1px solid rgba(130, 145, 180, 0.18) !important;
+
+        border-radius: 14px !important;
     }
 
-    /* ---------- MOBILE ---------- */
 
-    @media (max-width: 768px) {
+    /* =========================
+       DOWNLOAD BUTTON
+       ========================= */
 
-        .block-container {
-            padding: 1.2rem;
-        }
+    .stDownloadButton > button {
+        width: 100%;
 
-        .hero-title {
-            font-size: 2.7rem;
-        }
+        border-radius: 12px;
 
-        .hero-description {
-            font-size: 0.95rem;
-        }
+        background: #111a2c;
 
+        color: #dce3f5;
+
+        border: 1px solid rgba(130, 145, 180, 0.20);
+    }
+
+
+    /* =========================
+       FOOTER
+       ========================= */
+
+    .footer {
+        margin-top: 55px;
+
+        padding-top: 20px;
+
+        border-top: 1px solid rgba(130, 145, 180, 0.10);
+
+        text-align: center;
+
+        color: #56617a;
+
+        font-size: 11px;
     }
 
     </style>
@@ -432,49 +452,28 @@ st.markdown(
 
 
 # ============================================================
-# SESSION STATE
-# ============================================================
-
-if "research_started" not in st.session_state:
-    st.session_state.research_started = False
-
-if "research_result" not in st.session_state:
-    st.session_state.research_result = None
-
-if "research_topic" not in st.session_state:
-    st.session_state.research_topic = ""
-
-
-# ============================================================
-# HEADER
+# HERO
 # ============================================================
 
 st.markdown(
     """
-    <div class="hero-badge">
-        <span class="badge-dot"></span>
-        MULTI-AGENT RESEARCH SYSTEM
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+    <div class="hero">
 
-st.markdown(
-    """
-    <div class="hero-title">
-        Research that goes<br>
-        <span>deeper than search.</span>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+        <div class="hero-badge">
+            MULTI-AGENT RESEARCH LAB
+        </div>
 
-st.markdown(
-    """
-    <div class="hero-description">
-        Give your research question to a team of specialized AI agents.
-        They investigate background knowledge, academic evidence,
-        source verification, and final synthesis — all in one workflow.
+        <div class="hero-title">
+            Research that goes<br>
+            deeper than search.
+        </div>
+
+        <div class="hero-subtitle">
+            A CrewAI-powered research team where specialized AI agents
+            discover information, find scholarly evidence, verify sources,
+            and produce a structured research report.
+        </div>
+
     </div>
     """,
     unsafe_allow_html=True,
@@ -487,111 +486,122 @@ st.markdown(
 
 st.markdown(
     """
-    <div class="glass-card">
-        <div class="section-label">Research Brief</div>
-        <div class="section-title">What should the research team investigate?</div>
-        <div class="section-description">
-            Enter a topic, question, technology, theory, or research problem.
+    <div class="section-header">
+        <div class="section-eyebrow">
+            START A RESEARCH SESSION
+        </div>
+
+        <div class="section-title">
+            What do you want to research?
         </div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-st.write("")
 
-input_col, button_col = st.columns([5, 1], vertical_alignment="bottom")
+topic = st.text_area(
+    "Research topic",
+    placeholder=(
+        "Example: The impact of artificial intelligence "
+        "on modern education"
+    ),
+    height=120,
+    label_visibility="collapsed",
+)
 
-with input_col:
-    topic = st.text_input(
-        "Research topic",
-        value=st.session_state.research_topic,
-        placeholder="Example: Impact of artificial intelligence on higher education",
-        label_visibility="collapsed",
-    )
 
-with button_col:
-    start = st.button(
-        "✦  Start Research",
-        use_container_width=True,
-    )
+start_research = st.button(
+    "🚀 Start Research",
+    use_container_width=True,
+)
 
 
 # ============================================================
-# AGENT INFORMATION
+# AGENT TEAM
 # ============================================================
 
-st.write("")
 st.markdown(
     """
-    <div class="section-label">Your Research Team</div>
-    <div class="section-title">Four specialists. One research workflow.</div>
-    <div class="section-description">
-        Each agent has a dedicated responsibility and research tool.
+    <div class="section-header">
+
+        <div class="section-eyebrow">
+            RESEARCH TEAM
+        </div>
+
+        <div class="section-title">
+            Your AI Research Team
+        </div>
+
+        <div class="section-subtitle">
+            Four specialized agents working together to research,
+            verify, and synthesize your topic.
+        </div>
+
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-st.write("")
 
-agent_columns = st.columns(4)
-
-agent_information = [
-    (
-        "🔎",
-        "Research Scout",
-        "Background Intelligence",
-        "Wikipedia Search",
-    ),
-    (
-        "🎓",
-        "Academic Researcher",
-        "Scholarly Intelligence",
-        "OpenAlex Search",
-    ),
-    (
-        "🔍",
-        "Evidence Reviewer",
-        "Evidence Verification",
-        "Crossref Search",
-    ),
-    (
-        "✍️",
-        "Research Writer",
-        "Research Synthesis",
-        "Citation Audit",
-    ),
+agents = [
+    {
+        "icon": "🔎",
+        "name": "Research Scout",
+        "role": "Background Intelligence",
+        "tool": "Wikipedia Search",
+    },
+    {
+        "icon": "🎓",
+        "name": "Academic Researcher",
+        "role": "Scholarly Intelligence",
+        "tool": "OpenAlex Search",
+    },
+    {
+        "icon": "🔍",
+        "name": "Evidence Reviewer",
+        "role": "Evidence Verification",
+        "tool": "Crossref Search",
+    },
+    {
+        "icon": "✍️",
+        "name": "Research Writer",
+        "role": "Research Synthesis",
+        "tool": "Citation Audit",
+    },
 ]
 
-for column, agent in zip(agent_columns, agent_information):
 
-    icon, name, role, tool = agent
+cols = st.columns(4)
 
-    with column:
+for col, agent in zip(cols, agents):
+
+    with col:
 
         st.markdown(
             f"""
             <div class="agent-card">
-                <div class="agent-icon">{icon}</div>
-                <div class="agent-name">{name}</div>
-                <div class="agent-role">{role}</div>
 
-                <div style="
-                    margin-top: 14px;
-                    color: #69758f;
-                    font-size: 0.68rem;
-                ">
+                <div class="agent-icon">
+                    {agent["icon"]}
+                </div>
+
+                <div class="agent-name">
+                    {agent["name"]}
+                </div>
+
+                <div class="agent-role">
+                    {agent["role"]}
+                </div>
+
+                <div class="agent-tool-label">
                     TOOL
                 </div>
 
-                <div style="
-                    color: #a4aec5;
-                    font-size: 0.72rem;
-                    margin-top: 2px;
-                ">
-                    {tool}
+                <div class="agent-tool">
+                    {agent["tool"]}
                 </div>
+
             </div>
             """,
             unsafe_allow_html=True,
@@ -599,40 +609,36 @@ for column, agent in zip(agent_columns, agent_information):
 
 
 # ============================================================
-# START RESEARCH
+# RESEARCH EXECUTION
 # ============================================================
 
-if start:
+if start_research:
 
     if not topic.strip():
 
-        st.warning("Please enter a research topic first.")
+        st.warning(
+            "Please enter a research topic before starting."
+        )
 
     else:
 
-        st.session_state.research_topic = topic.strip()
-        st.session_state.research_started = True
-        st.session_state.research_result = None
-
-        st.markdown('<div class="soft-divider"></div>', unsafe_allow_html=True)
-
-        # ----------------------------------------------------
-        # LIVE RESEARCH HEADER
-        # ----------------------------------------------------
-
-        progress_placeholder = st.empty()
-
-        progress_placeholder.markdown(
+        st.markdown(
             """
-            <div class="working-panel">
-                <div class="working-label">Research Status</div>
+            <div class="working-card">
+
+                <div class="working-label">
+                    RESEARCH STATUS
+                </div>
+
                 <div class="working-agent">
-                    <span class="pulse"></span>
-                    Research team is starting
+                    🤖 Research team is working...
                 </div>
-                <div class="working-message">
-                    Preparing agents and research tools...
+
+                <div class="working-description">
+                    Your topic is being processed by the
+                    multi-agent research pipeline.
                 </div>
+
             </div>
             """,
             unsafe_allow_html=True,
@@ -640,88 +646,46 @@ if start:
 
         st.write("")
 
-        # ----------------------------------------------------
-        # PIPELINE
-        # ----------------------------------------------------
+        progress = st.progress(0)
 
-        pipeline_status = st.status(
-            "🔬 Research pipeline",
+        status = st.status(
+            "🔬 Research pipeline is starting...",
             expanded=True,
         )
 
         try:
 
-            pipeline_status.write(
-                "🔎 Research Scout is preparing the research..."
+            status.write(
+                "🔎 Research Scout is gathering background information..."
             )
 
-            progress_placeholder.markdown(
-                """
-                <div class="working-panel">
-                    <div class="working-label">Working Now</div>
-                    <div class="working-agent">
-                        <span class="pulse"></span>
-                        🔎 Research Scout
-                    </div>
-                    <div class="working-message">
-                        Establishing background context and key concepts.
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
+            progress.progress(15)
+
+            time.sleep(0.5)
+
+            status.write(
+                "🎓 Academic Researcher is finding scholarly sources..."
             )
 
-            # ------------------------------------------------
-            # CREATE CREW
-            # ------------------------------------------------
+            progress.progress(35)
+
+            time.sleep(0.5)
+
+            status.write(
+                "🔍 Evidence Reviewer is checking research evidence..."
+            )
+
+            progress.progress(60)
+
+            time.sleep(0.5)
+
+            status.write(
+                "✍️ Research Writer is synthesizing the final report..."
+            )
+
+            progress.progress(80)
 
             crew = create_crew()
-
-            pipeline_status.write(
-                "⚡ CrewAI team initialized."
-            )
-
-            pipeline_status.write(
-                "🔎 Research Scout → Wikipedia research"
-            )
-
-            time.sleep(0.3)
-
-            pipeline_status.write(
-                "🎓 Academic Researcher → academic literature"
-            )
-
-            time.sleep(0.3)
-
-            pipeline_status.write(
-                "🔍 Evidence Reviewer → source verification"
-            )
-
-            time.sleep(0.3)
-
-            pipeline_status.write(
-                "✍️ Research Writer → final synthesis"
-            )
-
-            # ------------------------------------------------
-            # RUN CREW
-            # ------------------------------------------------
-
-            progress_placeholder.markdown(
-                """
-                <div class="working-panel">
-                    <div class="working-label">Working Now</div>
-                    <div class="working-agent">
-                        <span class="pulse"></span>
-                        🤖 CrewAI Research Team
-                    </div>
-                    <div class="working-message">
-                        Agents are executing the research workflow...
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
 
             result = crew.kickoff(
                 inputs={
@@ -729,178 +693,80 @@ if start:
                 }
             )
 
-            st.session_state.research_result = result
+            progress.progress(100)
 
-            # ------------------------------------------------
-            # COMPLETE
-            # ------------------------------------------------
-
-            pipeline_status.update(
-                label="✓ Research completed",
+            status.update(
+                label="✅ Research completed successfully",
                 state="complete",
                 expanded=False,
             )
 
-            progress_placeholder.markdown(
-                """
-                <div class="working-panel">
-                    <div class="working-label">Research Status</div>
-                    <div class="working-agent">
-                        ✓ Research complete
-                    </div>
-                    <div class="working-message">
-                        All four agents completed their workflow.
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+            # Store result
+            st.session_state["research_result"] = str(result)
+            st.session_state["research_topic"] = topic.strip()
 
-        except Exception as error:
+        except Exception as e:
 
-            pipeline_status.update(
-                label="Research failed",
+            status.update(
+                label="❌ Research failed",
                 state="error",
                 expanded=True,
             )
 
-            progress_placeholder.empty()
-
             st.error(
-                f"Research could not be completed.\n\n{error}"
+                f"Research failed: {str(e)}"
             )
 
-            st.stop()
-
 
 # ============================================================
-# FINAL RESULT
+# RESULTS
 # ============================================================
 
-if st.session_state.research_result is not None:
-
-    result = st.session_state.research_result
-
-    st.markdown('<div class="soft-divider"></div>', unsafe_allow_html=True)
+if "research_result" in st.session_state:
 
     st.markdown(
         """
-        <div class="report-header">
-            <div class="report-kicker">
-                ✓ Research Complete
+        <div class="section-header">
+
+            <div class="section-eyebrow">
+                FINAL OUTPUT
             </div>
 
-            <div class="report-title">
-                Your Research Report
+            <div class="section-title">
+                Research Report
             </div>
+
+            <div class="section-subtitle">
+                Synthesized from the work of the complete
+                research agent team.
+            </div>
+
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-    st.write("")
-
-    # --------------------------------------------------------
-    # METRICS
-    # --------------------------------------------------------
-
-    metric_1, metric_2, metric_3, metric_4 = st.columns(4)
-
-    with metric_1:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <div class="metric-number">04</div>
-                <div class="metric-label">AI Agents</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with metric_2:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <div class="metric-number">04</div>
-                <div class="metric-label">Research Tools</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with metric_3:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <div class="metric-number">01</div>
-                <div class="metric-label">Research Topic</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with metric_4:
-        st.markdown(
-            """
-            <div class="metric-card">
-                <div class="metric-number">✓</div>
-                <div class="metric-label">Completed</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.write("")
-
-    # --------------------------------------------------------
-    # TOPIC
-    # --------------------------------------------------------
+    result = st.session_state["research_result"]
 
     st.markdown(
-        f"""
-        <div class="section-label">Research Topic</div>
-
-        <div style="
-            font-size: 1.4rem;
-            font-weight: 750;
-            color: white;
-            margin-bottom: 20px;
-        ">
-            {st.session_state.research_topic}
-        </div>
-        """,
+        '<div class="report-card">',
         unsafe_allow_html=True,
     )
-
-    # --------------------------------------------------------
-    # REPORT
-    # --------------------------------------------------------
 
     st.markdown(
-        """
-        <div class="section-label">
-            Final Analysis
-        </div>
-        """,
-        unsafe_allow_html=True,
+        result
     )
 
-    if hasattr(result, "raw"):
-        report = result.raw
-    else:
-        report = str(result)
-
-    st.markdown(report)
-
-    # --------------------------------------------------------
-    # DOWNLOAD
-    # --------------------------------------------------------
+    st.markdown(
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
     st.write("")
 
     st.download_button(
-        label="↓  Download Research Report",
-        data=report,
+        label="⬇️ Download Research Report",
+        data=result,
         file_name="research_report.txt",
         mime="text/plain",
         use_container_width=True,
@@ -908,19 +774,70 @@ if st.session_state.research_result is not None:
 
 
 # ============================================================
+# METRICS
+# ============================================================
+
+st.markdown(
+    """
+    <div class="section-header">
+
+        <div class="section-eyebrow">
+            SYSTEM OVERVIEW
+        </div>
+
+        <div class="section-title">
+            Research Pipeline
+        </div>
+
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+metric_cols = st.columns(4)
+
+metrics = [
+    ("04", "AI AGENTS"),
+    ("04", "RESEARCH TOOLS"),
+    ("01", "RESEARCH TOPIC"),
+    (
+        "✓" if "research_result" in st.session_state else "—",
+        "STATUS",
+    ),
+]
+
+
+for col, (number, label) in zip(metric_cols, metrics):
+
+    with col:
+
+        st.markdown(
+            f"""
+            <div class="metric-card">
+
+                <div class="metric-number">
+                    {number}
+                </div>
+
+                <div class="metric-label">
+                    {label}
+                </div>
+
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
+# ============================================================
 # FOOTER
 # ============================================================
 
-st.write("")
 st.markdown(
     """
-    <div style="
-        text-align: center;
-        color: #4f5a72;
-        font-size: 0.72rem;
-        padding-top: 30px;
-    ">
-        Powered by CrewAI · Groq GPT-OSS 120B · Streamlit
+    <div class="footer">
+        Built with Streamlit · CrewAI · Groq · Specialized Research Tools
     </div>
     """,
     unsafe_allow_html=True,
